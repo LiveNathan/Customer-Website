@@ -35,6 +35,7 @@ public class Customer {
     @Min(message = "Age must be higher than zero.", value = 0)
     private Integer age;
 
+    @NotBlank(message = "Address must not be blank.")
     private String address;
 
     @Override

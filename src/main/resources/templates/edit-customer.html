@@ -13,31 +13,34 @@
   since the Customer object fields were populated before it was added to the model, their
   values populate the fields here. Any changes to the fields then POST to the update endpoint.
   -->
-  <form action="#" th:action="@{'/update/' + ${customer.id}}" th:object="${customer}"
-        method="post">
+  <form action="#" th:action="@{'/update/' + ${customer.id}}" th:object="${customer}" method="post" class="form">
     <table border="0" cellpadding="10">
       <tr>
         <td>Customer ID:</td>
         <td><input type="text" th:field="*{id}" readonly/></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Customer Name:</td>
-        <td><input type="text" th:field="*{fullName}" required/></td>
+        <td><input class="form-control" type="text" th:field="*{fullName}" id="fullName" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Email Address:</td>
-        <td><input type="email" th:field="*{emailAddress}" required/></td>
+        <td><input class="form-control" type="email" th:field="*{emailAddress}" id="emailAddress" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></div></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Age:</td>
-        <td><input type="number" th:field="*{age}" required/></td>
+        <td><input class="form-control" type="number" th:field="*{age}" id="age" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Address:</td>
-        <td><textarea type="text" th:field="*{address}" required></textarea></td>
+        <td><textarea class="form-control" type="text" th:field="*{address}" id="address" required></textarea>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div></td>
       </tr>
       <tr>
-        <td colspan="2"><button type="submit">Save</button></td>
+        <td colspan="2"><button class="btn btn-success" type="submit">Save</button></td>
       </tr>
     </table>
   </form>

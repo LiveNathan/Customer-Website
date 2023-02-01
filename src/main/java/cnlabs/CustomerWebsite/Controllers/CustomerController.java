@@ -6,9 +6,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -38,7 +40,10 @@ public class CustomerController {
     // As the Model is received back from the view, @ModelAttribute
     // creates a Customer based on the object you collected from
     // the HTML page above
-    public String saveCustomer(@ModelAttribute("customer") Customer customer) {
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "new-customer";
+        }
         customerService.saveCustomer(customer);
         return "redirect:/";
     }
@@ -52,12 +57,18 @@ public class CustomerController {
         // certain circumstances. The view name is passed to the constructor.
         ModelAndView mav = new ModelAndView("edit-customer");
         Customer customer = customerService.getCustomer(id);
+        if (customer == null){  // If some error happens while trying to get the customer, return home.
+            return new ModelAndView("redirect:/");
+        }
         mav.addObject("customer", customer);
         return mav;
     }
 
     @PostMapping("/update/{id}")
-    public String updateCustomer(@PathVariable(name = "id") Long id, @ModelAttribute("customer") Customer customer, Model model) {
+    public String updateCustomer(@PathVariable(name = "id") Long id, @ModelAttribute("customer") Customer customer, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "/edit/{id}";
+        }
         if (!id.equals(customer.getId())) {
             model.addAttribute("message",
                     "Cannot update, customer id " + customer.getId()

@@ -13,30 +13,34 @@
   The form is tied to the Customer object you added to the model,
   and on submit it will hit the /save endpoint using the POST method.
   -->
-  <form action="#" th:action="@{/save}" th:object="${customer}" method="post">
+  <form action="#" th:action="@{/save}" th:object="${customer}" method="post" class="form">
     <!--
     These input fields are used to collect the information
     required to complete the referenced Customer object.
     -->
     <table border="0" cellpadding="10">
-      <tr>
+      <tr class="form-group">
         <td>Customer Name:</td>
-        <td><input type="text" th:field="*{fullName}" required/></td>
+        <td><input class="form-control" type="text" th:field="*{fullName}" id="fullName" placeholder="Full Name" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Email Address:</td>
-        <td><input type="email" th:field="*{emailAddress}" required/></td>
+        <td><input class="form-control" type="email" th:field="*{emailAddress}" id="emailAddress" placeholder="Email" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"></div></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Age:</td>
-        <td><input type="number" th:field="*{age}" required/></td>
+        <td><input class="form-control" type="number" th:field="*{age}" id="age" placeholder="Age" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div></td>
       </tr>
-      <tr>
+      <tr class="form-group">
         <td>Address:</td>
-        <td><textarea type="text" th:field="*{address}" required></textarea></td>
+        <td><textarea class="form-control" type="text" th:field="*{address}" id="address" placeholder="Address" required></textarea>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div></td>
       </tr>
       <tr>
-        <td colspan="2"><button type="submit">Save</button> </td>
+        <td colspan="2"><button type="submit" class="btn btn-success">Save</button> </td>
       </tr>
     </table>
   </form>

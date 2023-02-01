@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Edit Book</title>
+</head>
+<body>
+<div align="center">
+  <h1>Edit Book</h1>
+  <br />
+    <form action="#" th:action="@{'/book/update/' + ${book.id}}" th:object="${book}" method="post" class="form">
+    <table border="0" cellpadding="10">
+      <tr>
+        <td>Book ID:</td>
+        <td><input type="text" th:field="*{id}" readonly/></td>
+      </tr>
+      <tr class="form-group">
+        <td>Book Title:</td>
+        <td><input class="form-control" type="text" th:field="*{title}" id="title" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div></td>
+      </tr>
+      <tr class="form-group">
+        <td>Author:</td>
+        <td><input class="form-control" type="text" th:field="*{author}" id="author" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button type="submit" class="btn btn-success">Save</button> </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>

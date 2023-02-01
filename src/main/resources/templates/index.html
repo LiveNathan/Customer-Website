@@ -21,6 +21,7 @@
             <th>Email Address</th>
             <th>Age</th>
             <th>Address</th>
+            <th>Book</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -37,7 +38,8 @@
             <td th:text="${customer.emailAddress}">Email Address</td>
             <td th:text="${customer.age}">Age</td>
             <td th:text="${customer.address}">Address</td>
-            <td><a th:href="@{'/edit/' + ${customer.id}}">Edit  </a><a th:href="@{'/delete/' + ${customer.id}}">Delete</a></td>
+            <td th:text="${customer.book}">Book</td>
+            <td><a th:href="@{'/edit/' + ${customer.id}}">Edit</a>  <a th:href="@{'/delete/' + ${customer.id}}">Delete</a></td>
         </tr>
         </tbody>
     </table>

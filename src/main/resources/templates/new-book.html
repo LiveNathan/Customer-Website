@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <title>Create New Book</title>
+</head>
+<body>
+<div align="center">
+  <h1>Create New Book</h1>
+  <br />
+    <form action="#" th:action="@{/book/save}" th:object="${book}" method="post" class="form">
+    <table border="0" cellpadding="10">
+      <tr class="form-group">
+        <td>Book Title:</td>
+        <td><input class="form-control" type="text" th:field="*{title}" id="title" placeholder="Title" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div></td>
+      </tr>
+      <tr class="form-group">
+        <td>Author:</td>
+        <td><input class="form-control" type="text" th:field="*{author}" id="author" placeholder="Author" required/>
+          <div class="alert alert-warning" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button type="submit" class="btn btn-success">Save</button> </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>

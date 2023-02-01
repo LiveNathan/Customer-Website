@@ -38,6 +38,11 @@ public class Customer {
     @NotBlank(message = "Address must not be blank.")
     private String address;
 
+    @ToString.Exclude
+    @OneToOne(orphanRemoval = true)
+    @JoinColumn(name = "book_id")
+    private Book book;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

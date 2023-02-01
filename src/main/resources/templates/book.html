@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Book Manager</title>
+</head>
+<body>
+<div align="center">
+    <h1>Book List</h1>
+    <br/><br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Customer</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+            <td th:text="${book.id}">Customer ID</td>
+            <td th:text="${book.title}">Full Name</td>
+            <td th:text="${book.author}">Email Address</td>
+            <td th:text="${book.customer}">Age</td>
+            <td><a th:href="@{'/book/edit/' + ${book.id}}">Edit</a>  <a th:href="@{'/book/delete/' + ${book.id}}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <p><a th:href="@{/book/new}">Add New Book</a></p>
+</div>
+</body>
+</html>

@@ -14,7 +14,6 @@ import java.util.Objects;
 @Table(name = "customers")
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -39,7 +38,7 @@ public class Customer {
     private String address;
 
     @ToString.Exclude
-    @OneToOne(orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "book_id")
     private Book book;
 
@@ -54,5 +53,10 @@ public class Customer {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return fullName + " (" + emailAddress + ")";
     }
 }

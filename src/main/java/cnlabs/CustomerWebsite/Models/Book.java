@@ -9,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "books")
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -25,7 +24,11 @@ public class Book {
     @NotBlank(message = "Author must not be blank.")
     private String author;
 
-    @OneToOne(mappedBy = "book", orphanRemoval = true)
+    @OneToOne(mappedBy = "book")
     private Customer customer;
 
+    @Override
+    public String toString() {
+        return title + " by " + author;
+    }
 }

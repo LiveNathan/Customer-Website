@@ -1,7 +1,9 @@
 package cnlabs.CustomerWebsite.Controllers;
 
 import cnlabs.CustomerWebsite.Models.Book;
+import cnlabs.CustomerWebsite.Models.Customer;
 import cnlabs.CustomerWebsite.Services.BookService;
+import cnlabs.CustomerWebsite.Services.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,8 @@ import java.util.List;
 public class BookController {
     @Autowired
     private final BookService bookService;
+    @Autowired
+    private final CustomerService customerService;
 
     @GetMapping("/book")
     public String viewBooks(Model model) {
@@ -33,7 +37,7 @@ public class BookController {
     }
 
     @PostMapping("/book/save")
-    public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model){
+    public String saveBook(@Valid @ModelAttribute("book") Book book, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "new-book";
         }
@@ -61,6 +65,31 @@ public class BookController {
         }
         bookService.saveBook(book);
         return "redirect:/book";
+    }
+
+    @GetMapping("/book/assign/{id}")
+    public String showAssignBookPage(@PathVariable Long id, Model model) {
+        Customer customer = customerService.getCustomer(id);
+        List<Book> books = bookService.getAvailableBooks();
+        model.addAttribute("customer", customer);
+        model.addAttribute("books", books);
+        return "assign-book";
+    }
+
+    @PostMapping("/book/assign")
+    public String assignBook(@RequestParam Long customerId, @RequestParam Long bookId) {
+        Customer customer = customerService.getCustomer(customerId);
+        customer.setBook(bookService.getBook(bookId));
+        customerService.saveCustomer(customer);
+        return "redirect:/";
+    }
+
+    @GetMapping("/book/remove/{id}")
+    public String removeBook(@PathVariable Long id) {
+        Customer customer = customerService.getCustomer(id);
+        customer.setBook(null);
+        customerService.saveCustomer(customer);
+        return "redirect:/";
     }
 
     @RequestMapping("book/delete/{id}")

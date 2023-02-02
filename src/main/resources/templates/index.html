@@ -39,11 +39,18 @@
             <td th:text="${customer.age}">Age</td>
             <td th:text="${customer.address}">Address</td>
             <td th:text="${customer.book}">Book</td>
-            <td><a th:href="@{'/edit/' + ${customer.id}}">Edit</a>  <a th:href="@{'/delete/' + ${customer.id}}">Delete</a></td>
+            <td><a th:href="@{'/edit/' + ${customer.id}}">Edit</a>
+                <a th:href="@{'/delete/' + ${customer.id}}">Delete</a>
+                <a th:text="${(customer.book == null) ? 'Check out book' : ''}"
+                   th:href="@{'/book/assign/' + ${customer.id}}"></a>
+                <a th:text="${(customer.book != null) ? 'Check in book' : ''}"
+                   th:href="${(customer.book != null) ? '/remove/' + customer.book.getId() : ''}"></a>
+            </td>
         </tr>
         </tbody>
     </table>
     <p><a th:href="@{/new}">Add New Customer</a></p>
+    <p><a th:href="@{/book}">View Books</a></p>
 </div>
 </body>
 </html>

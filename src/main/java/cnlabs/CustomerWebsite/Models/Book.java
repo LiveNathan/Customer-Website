@@ -18,6 +18,7 @@ public class Book {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(nullable = false)
     @NotBlank(message = "Title must not be blank.")
     private String title;
 

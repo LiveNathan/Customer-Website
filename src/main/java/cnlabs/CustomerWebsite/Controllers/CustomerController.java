@@ -71,6 +71,6 @@ public class CustomerController {
     @RequestMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable(name = "id") Long id) {
         customerService.deleteCustomer(id);
-        return "redirect:/";
+            return "redirect:/";
     }
 }

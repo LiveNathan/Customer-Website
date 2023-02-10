@@ -21,7 +21,9 @@ public class BookService {
     }
 
     public List<Book> getAvailableBooks() {
-        return bookRepository.findAll().stream().filter(book -> book.getCustomer() == null).collect(Collectors.toList());
+        return bookRepository.findAll().stream()
+            .filter(book -> book.getCustomer() == null)
+            .collect(Collectors.toList());
     }
 
     @Transactional

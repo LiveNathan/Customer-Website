@@ -14,7 +14,6 @@ import java.util.Objects;
 @Table(name = "customers")
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -35,7 +34,13 @@ public class Customer {
     @Min(message = "Age must be higher than zero.", value = 0)
     private Integer age;
 
+    @NotBlank(message = "Address must not be blank.")
     private String address;
+
+    @ToString.Exclude
+    @OneToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
 
     @Override
     public boolean equals(Object o) {
@@ -48,5 +53,10 @@ public class Customer {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return fullName + " (" + emailAddress + ")";
     }
 }

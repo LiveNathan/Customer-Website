@@ -15,7 +15,7 @@
     <br/>
     <form action="#" th:action="@{/book/assign}" method="post">
         <input type="hidden" name="customerId" th:value="${customer.id}"/>
-        <table border="0" cellpadding="10" class="table">
+        <table border="0" cellpadding="10">
             <tr>
                 <td>Customer Name: <strong><span th:text="${customer.fullName}"></span></strong></td>
             </tr>

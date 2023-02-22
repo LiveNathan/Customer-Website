@@ -18,8 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/book")
 public class BookController {
+
     @Autowired
     private final BookService bookService;
+
     @Autowired
     private final CustomerService customerService;
 

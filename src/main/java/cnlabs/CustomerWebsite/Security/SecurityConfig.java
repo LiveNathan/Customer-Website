@@ -1,4 +1,4 @@
-package Security;
+package cnlabs.CustomerWebsite.Security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +32,10 @@ public class SecurityConfig {
                 //users should log in with HTTP Basic.
                 .httpBasic(Customizer.withDefaults())
                 .formLogin();
+//                .loginPage("/register")
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/index");
         return http.build();
     }
 

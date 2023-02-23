@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,7 +12,8 @@
 <body>
 
 <div sec:authorize="!isAuthenticated()">
-    <p>You can <a th:href="@{/register}">register new account</a> or <a th:href="@{/login}">login</a> to an existing account.</p>
+    <p>You can <a th:href="@{/register}">register new account</a> or <a th:href="@{/login}">login</a> to an existing
+        account.</p>
 </div>
 
 <div sec:authorize="isAuthenticated()">
@@ -26,6 +29,11 @@
 <div sec:authorize="hasRole('ROLE_ADMIN')">
     <p><a th:href="@{/customer-view}">Customer View</a></p>
 </div>
+
+<span sec:authorize="isAuthenticated()">
+                Logged in user: <b th:inline="text"> [[${#httpServletRequest.remoteUser}]] </b>
+                <a th:if="${#httpServletRequest.remoteUser !=null}" th:href="@{/logout}">Sign Out</a>
+                </span>
 
 </body>
 </html>

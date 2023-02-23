@@ -21,16 +21,20 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String showRegisterPage(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
         return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "register";
+            model.addAttribute("user", user);
+            return "/register";
         }
         userService.registerUser(user);
         return "redirect:/";
     }
+
 }

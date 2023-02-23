@@ -6,7 +6,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,22 +19,17 @@ public class SecurityConfig {
         http
                 //disable CSRF for Postman usage
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 //authorize all requests to access CSS and JavaScript
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/js/**", "/css/**", "/img/**", "/webjars/**", "/error/**", "/login/**", "/images/**", "/register").permitAll()
+                        .antMatchers("/js/**", "/css/**", "/img/**", "/webjars/**", "/error/**", "/login/**", "/images/**", "/register/**", "/", "/index").permitAll()
                         // Allow users to access the customer-view
                         .antMatchers("/customer-view").hasRole("USER_ROLE")
                         //all other requests should be role admin
-                        .anyRequest().hasRole("ADMIN_ROLE"))
+//                        .anyRequest().hasRole("ADMIN_ROLE"))
+                        .anyRequest().authenticated())
 //                        .anyRequest().permitAll())
-                //users should log in with HTTP Basic.
-                .httpBasic(Customizer.withDefaults())
-                .formLogin();
-//                .loginPage("/register")
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/index");
+                        .httpBasic(Customizer.withDefaults())
+                        .formLogin();
         return http.build();
     }
 

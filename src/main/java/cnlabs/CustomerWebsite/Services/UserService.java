@@ -27,13 +27,17 @@ public class UserService implements UserDetailsService {
     private RoleService roleService;
 
     public void registerUser(User user) {
+        // Check if the user already exists in the database
+        Optional<User> existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
+        if (existingUser.isPresent()) {
+            throw new RuntimeException("User already exists");
+        }
+
         user.setPassword(encoder.encode(user.getPassword()));
 
         // Get USER role from DB and add it to the user
         Role userRole = roleService.findByRole(Role.Roles.ROLE_USER);
         user.setRole(userRole);
-//        List<Role> rolesUser = Collections.singletonList(userRole);
-//        user.getAuthorities().addAll(rolesUser);
 
         userRepository.save(user);
     }

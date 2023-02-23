@@ -33,9 +33,10 @@
                     <div class="alert alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                 </td>
             </tr>
-            <tr>
+            <tr class="form-group">
                 <td colspan="2">
                     <button type="submit" class="btn btn-success">Register</button>
+                    <span>Already registered? <a th:href="@{/login}">Login here</a></span>
                 </td>
             </tr>
         </table>

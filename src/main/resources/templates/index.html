@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org"
-      layout:decorate="~{fragments/layout}">
+<html xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}">
 <head>
     <meta charset="UTF-8">
     <title>Salutations!</title>
 </head>
 <body>
 <div layout:fragment="content" th:remove="tag">
+
     <h1>Salutations!</h1>
     <div sec:authorize="!isAuthenticated()">
         <p>You can <a th:href="@{/register}">register a new account</a> or <a th:href="@{/login}">login</a> to an

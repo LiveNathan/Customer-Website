@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 //authorize all requests to access CSS and JavaScript
                 .authorizeRequests(auth -> auth
-                        .antMatchers("/js/**", "/css/**", "/img/**", "/webjars/**", "/error/**", "/login/**", "/images/**", "/register/**", "/", "/index").permitAll()
+                        .antMatchers("/js/**", "/css/**", "/fragments/**", "/img/**", "/webjars/**", "/error/**", "/login/**", "/images/**", "/register/**", "/", "/index").permitAll()
                         // Allow users to access the customer-view
                         .antMatchers("/customer-view").hasRole("USER")
                         //all other requests should be role admin

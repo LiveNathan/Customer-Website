@@ -10,7 +10,7 @@
             <p>
                 <span sec:authorize="isAuthenticated()">
                 Logged in user: <span sec:authentication="name">Bob</span>
-                <a th:if="${#httpServletRequest.remoteUser !=null}" th:href="@{/logout}">Logout Out</a>
+                <a th:if="${#httpServletRequest.remoteUser !=null}" th:href="@{/logout}"> - Log Out</a>
                 </span>
         </div>
     </footer>

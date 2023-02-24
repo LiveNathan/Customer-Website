@@ -13,6 +13,11 @@ public class AppController {
         return "index";
     }
 
+    @GetMapping("/fragments")
+    public String getFragments() {
+        return "fragments.html";
+    }
+
     @GetMapping("/customer-view")
     public String showCustomerView() {
         return "customer-view";

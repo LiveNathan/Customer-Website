@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .authorizeRequests(auth -> auth
                         .antMatchers("/js/**", "/css/**", "/img/**", "/webjars/**", "/error/**", "/login/**", "/images/**", "/register/**", "/", "/index").permitAll()
                         // Allow users to access the customer-view
-                        .antMatchers("/customer-view").hasRole("USER_ROLE")
+                        .antMatchers("/customer-view").hasRole("USER")
                         //all other requests should be role admin
 //                        .anyRequest().hasRole("ADMIN_ROLE"))
                         .anyRequest().authenticated())

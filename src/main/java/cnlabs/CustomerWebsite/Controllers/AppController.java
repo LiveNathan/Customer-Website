@@ -12,4 +12,9 @@ public class AppController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/customer-view")
+    public String showCustomerView() {
+        return "customer-view";
+    }
 }

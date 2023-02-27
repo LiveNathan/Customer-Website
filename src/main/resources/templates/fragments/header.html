@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<body>
+<th:block th:fragment="header">
+    <nav th:fragment="navbar" class="navbar navbar-expand-md bg-dark navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" th:href="@{/}">Customer Website</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/customer-list}">Customer List</a></li>
+
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/book}">Books</a></li>
+
+                <li sec:authorize="hasRole('ROLE_USER')"><a class="nav-link" th:href="@{/customer-view}">Customer View</a></li>
+
+                <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">Log In</a></li>
+                <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/register}">Register</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Log Out</a></li>
+            </ul>
+        </div>
+    </nav>
+</th:block>
+</body>
+</html>

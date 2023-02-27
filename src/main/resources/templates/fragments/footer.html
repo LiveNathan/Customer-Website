@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+</head>
+<th:block th:fragment="footer">
+    <footer>
+        <div class="container">
+
+            <p>
+                <span sec:authorize="isAuthenticated()">
+                Logged in user: <span sec:authentication="name">Bob</span>
+                <a th:if="${#httpServletRequest.remoteUser !=null}" th:href="@{/logout}"> - Log Out</a>
+                </span>
+        </div>
+    </footer>
+
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+
+</th:block>
+</body>
+</html>

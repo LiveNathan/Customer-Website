@@ -18,8 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(path = "/book")
 public class BookController {
+
     @Autowired
     private final BookService bookService;
+
     @Autowired
     private final CustomerService customerService;
 
@@ -82,7 +84,7 @@ public class BookController {
         Customer customer = customerService.getCustomer(customerId);
         customer.setBook(bookService.getBook(bookId));
         customerService.saveCustomer(customer);
-        return "redirect:/";
+        return "redirect:/customer-list";
     }
 
     @GetMapping("/remove/{id}")
@@ -90,7 +92,7 @@ public class BookController {
         Customer customer = customerService.getCustomer(id);
         customer.setBook(null);
         customerService.saveCustomer(customer);
-        return "redirect:/";
+        return "redirect:/customer-list";
     }
 
     @RequestMapping("/delete/{id}")

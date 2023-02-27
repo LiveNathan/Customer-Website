@@ -19,11 +19,11 @@ public class CustomerController {
     @Autowired
     private final CustomerService customerService;
 
-    @GetMapping("/")
+    @GetMapping("/customer-list")
     public String viewHomePage(Model model) {
         final List<Customer> customerList = customerService.getAllCustomers();
         model.addAttribute("customerList", customerList);
-        return "index";
+        return "customer-list";
     }
 
     @GetMapping("/new")
@@ -39,7 +39,7 @@ public class CustomerController {
             return "new-customer";
         }
         customerService.saveCustomer(customer);
-        return "redirect:/";
+        return "redirect:/customer-list";
     }
 
     @GetMapping("/edit/{id}")
@@ -65,12 +65,12 @@ public class CustomerController {
             return "error-page";
         }
         customerService.saveCustomer(customer);
-        return "redirect:/";
+        return "redirect:customer-list";
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable(name = "id") Long id) {
         customerService.deleteCustomer(id);
-            return "redirect:/";
+            return "redirect:/customer-list";
     }
 }

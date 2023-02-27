@@ -17,6 +17,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

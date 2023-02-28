@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" layout:decorate="~{fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+
+    <h1>Admin Dashboard</h1>
+
+    <!--    <p><a th:href="@{/batch/job/}">Start batch process.</a></p>-->
+    <a th:href="@{/batch/job/?id=1}" class="btn btn-success">Start batch process.</a>
+    <br>
+</div>
+</body>
+</html>

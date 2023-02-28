@@ -14,6 +14,8 @@
 
                 <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/book}">Books</a></li>
 
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/dashboard}">Dashboard</a></li>
+
                 <li sec:authorize="hasRole('ROLE_USER')"><a class="nav-link" th:href="@{/customer-view}">Customer View</a></li>
 
                 <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">Log In</a></li>

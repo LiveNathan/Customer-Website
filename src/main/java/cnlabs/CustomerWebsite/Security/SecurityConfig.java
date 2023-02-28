@@ -25,8 +25,8 @@ public class SecurityConfig {
                         // Allow users to access the customer-view
                         .antMatchers("/customer-view").hasRole("USER")
                         //all other requests should be role admin
-//                        .anyRequest().hasRole("ADMIN_ROLE"))
-                        .anyRequest().authenticated())
+                        .anyRequest().hasRole("ADMIN"))
+//                        .anyRequest().authenticated())
 //                        .anyRequest().permitAll())
                         .httpBasic(Customizer.withDefaults())
                         .formLogin();

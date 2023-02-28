@@ -73,4 +73,9 @@ public class CustomerController {
         customerService.deleteCustomer(id);
             return "redirect:/customer-list";
     }
+
+    @GetMapping("/dashboard")
+    public String showDashboard() {
+        return "dashboard";
+    }
 }

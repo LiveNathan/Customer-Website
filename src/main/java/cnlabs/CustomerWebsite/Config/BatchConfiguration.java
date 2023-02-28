@@ -26,10 +26,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Configuration
 @EnableBatchProcessing
@@ -49,7 +48,7 @@ public class BatchConfiguration {
     @Bean
     public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Customer> repositoryReader, NameProcessor processor, CustomerWriter writer) {
         return stepBuilderFactory.get("step-1")
-                .<Customer, Customer>chunk(1)
+                .<Customer, Customer>chunk(100)
                 .reader(repositoryReader)      // EXTRACT
 //                .processor(processor)   // TRANSFORM
                 .writer(writer)         // LOAD
@@ -81,11 +80,15 @@ public class BatchConfiguration {
     @Component
     public static class CustomerWriter implements ItemWriter<Customer> {
 
-        private final Resource outputResource = new FileSystemResource("src/main/resources/outputData-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".csv");
+        //        private final Resource outputResource = new FileSystemResource("src/main/resources/outputData-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".csv");
+        private Resource outputResource;
         private FlatFileItemWriter<Customer> writer;
 
         @BeforeStep
-        public void beforeStep() throws Exception {
+        public void beforeStep(ExecutionContext executionContext) throws Exception {
+            String timestamp = Objects.requireNonNull(executionContext.get("timestamp")).toString();
+            System.out.println(timestamp);
+            outputResource = new FileSystemResource("src/main/resources/outputData-" + timestamp + ".csv");
             writer = new FlatFileItemWriter<>();
 
             // Set output file location

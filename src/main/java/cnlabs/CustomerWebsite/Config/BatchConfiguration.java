@@ -3,7 +3,9 @@ package cnlabs.CustomerWebsite.Config;
 import cnlabs.CustomerWebsite.Models.Customer;
 import cnlabs.CustomerWebsite.Repos.CustomerRepository;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.annotation.AfterStep;
 import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -28,7 +30,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Configuration
 @EnableBatchProcessing
@@ -85,10 +86,11 @@ public class BatchConfiguration {
         private FlatFileItemWriter<Customer> writer;
 
         @BeforeStep
-        public void beforeStep(ExecutionContext executionContext) throws Exception {
-            String timestamp = Objects.requireNonNull(executionContext.get("timestamp")).toString();
+        public void beforeStep(final StepExecution stepExecution) throws Exception {
+            JobParameters parameters = stepExecution.getJobExecution().getJobParameters();
+            String timestamp = parameters.getString("timestamp");
             System.out.println(timestamp);
-            outputResource = new FileSystemResource("src/main/resources/outputData-" + timestamp + ".csv");
+            outputResource = new FileSystemResource("src/main/resources/templates/output/outputData-" + timestamp + ".csv");
             writer = new FlatFileItemWriter<>();
 
             // Set output file location

@@ -75,7 +75,10 @@ public class CustomerController {
     }
 
     @GetMapping("/dashboard")
-    public String showDashboard() {
+    public String showDashboard(Model model) {
+        model.addAttribute("filepath", null);
+        model.addAttribute("jobExecutionID", null);
+        model.addAttribute("jobExecutionStatus", null);
         return "dashboard";
     }
 }

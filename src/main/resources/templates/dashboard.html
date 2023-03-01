@@ -9,9 +9,24 @@
 
     <h1>Admin Dashboard</h1>
 
-    <!--    <p><a th:href="@{/batch/job/}">Start batch process.</a></p>-->
     <a th:href="@{/batch/job}" class="btn btn-success">Start batch process.</a>
-    <br>
+    <br/>
+    <table border="1" cellpadding="10" class="table">
+        <thead>
+        <tr>
+            <th scope="col">Batch ID</th>
+            <th scope="col">Status</th>
+            <th scope="col">Report</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr scope="row">
+            <td th:if="${jobExecutionID != null}" th:text="${jobExecutionID}">Batch ID</td>
+            <td th:if="${jobExecutionStatus != null}" th:text="${jobExecutionStatus}">Status</td>
+            <td><a th:if="${filepath != null}" th:href="@{${filepath}}">Download</a></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

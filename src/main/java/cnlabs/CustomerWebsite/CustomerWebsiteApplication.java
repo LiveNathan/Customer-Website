@@ -13,6 +13,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -54,7 +55,7 @@ public class CustomerWebsiteApplication implements CommandLineRunner {
         if (customerService.getAllCustomers().isEmpty()) {
             Book book = bookService.getAllBooks().get(0);
             customerService.saveAllCustomer(Arrays.asList(
-                            Customer.builder().fullName("Customer 1").emailAddress("customer1@gmail.com").address("Customer Address One").age(30).book(book).build(),
+                            Customer.builder().fullName("Customer 1").emailAddress("customer1@gmail.com").address("Customer Address One").age(30).book(book).bookCheckoutDate(LocalDate.now().minusDays(20)).build(),
                             Customer.builder().fullName("Customer 2").emailAddress("customer2@gmail.com").address("Customer Address Two").age(28).build(),
                             Customer.builder().fullName("Customer 3").emailAddress("customer3@gmail.com").address("Customer Address Three").age(32).build()
                     )

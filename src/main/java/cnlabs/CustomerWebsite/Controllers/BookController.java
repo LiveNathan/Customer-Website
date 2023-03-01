@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -84,7 +84,7 @@ public class BookController {
     public String assignBook(@RequestParam Long customerId, @RequestParam Long bookId) {
         Customer customer = customerService.getCustomer(customerId);
         customer.setBook(bookService.getBook(bookId));
-        customer.setBookCheckoutDate(new Date());
+        customer.setBookCheckoutDate(LocalDate.now());
         customerService.saveCustomer(customer);
         return "redirect:/customer-list";
     }

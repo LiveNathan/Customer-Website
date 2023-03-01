@@ -28,6 +28,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -47,11 +48,11 @@ public class BatchConfiguration {
 
     // Step
     @Bean
-    public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Customer> repositoryReader, NameProcessor processor, CustomerWriter writer) {
+    public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<Customer> repositoryReader, DateProcessor processor, CustomerWriter writer) {
         return stepBuilderFactory.get("step-1")
                 .<Customer, Customer>chunk(100)
                 .reader(repositoryReader)      // EXTRACT
-//                .processor(processor)   // TRANSFORM
+                .processor(processor)   // TRANSFORM
                 .writer(writer)         // LOAD
                 .build();
     }
@@ -69,19 +70,22 @@ public class BatchConfiguration {
 
     // ItemProcessor
     @Component
-    public static class NameProcessor implements ItemProcessor<Customer, Customer> {
+    public static class DateProcessor implements ItemProcessor<Customer, Customer> {
         @Override
         public Customer process(Customer customer) {
-//            customer.setName(customer.getName().toUpperCase());
-//            customer.setNameUpdatedAt(new Date());
-            return customer;
+            if (customer.getBookCheckoutDate() != null) {
+                if (customer.getBookCheckoutDate().plusDays(14).isBefore(LocalDate.now())) {  // if checkout date + 14 < today
+                    return customer;  // return the customer
+                }
+            }
+            return null;  // To filter a record, you can return null from the ItemProcessor.
         }
     }
 
+    // ItemWriter
     @Component
     public static class CustomerWriter implements ItemWriter<Customer> {
 
-        //        private final Resource outputResource = new FileSystemResource("src/main/resources/outputData-" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".csv");
         private Resource outputResource;
         private FlatFileItemWriter<Customer> writer;
 
@@ -89,7 +93,7 @@ public class BatchConfiguration {
         public void beforeStep(final StepExecution stepExecution) throws Exception {
             JobParameters parameters = stepExecution.getJobExecution().getJobParameters();
             String timestamp = parameters.getString("timestamp");
-            System.out.println(timestamp);
+//            System.out.println(timestamp);
             outputResource = new FileSystemResource("src/main/resources/templates/output/outputData-" + timestamp + ".csv");
             writer = new FlatFileItemWriter<>();
 
@@ -113,6 +117,7 @@ public class BatchConfiguration {
 
             // Open the writer
             writer.open(new ExecutionContext());
+            stepExecution.getJobExecution().getExecutionContext().putString("outputFileName", outputResource.getFile().getName());  // Store the file name to the job execution context.
         }
 
         @Override

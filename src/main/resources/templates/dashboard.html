@@ -9,8 +9,8 @@
 
     <h1>Admin Dashboard</h1>
 
-    <a th:href="@{/batch/job}" class="btn btn-success">Start batch process.</a>
-    <br/>
+    <a th:href="@{/batch/job}" class="btn btn-success">Generate report on any overdue books.</a>
+    <p></p>
     <table border="1" cellpadding="10" class="table">
         <thead>
         <tr>
@@ -23,7 +23,7 @@
         <tr scope="row">
             <td th:if="${jobExecutionID != null}" th:text="${jobExecutionID}">Batch ID</td>
             <td th:if="${jobExecutionStatus != null}" th:text="${jobExecutionStatus}">Status</td>
-            <td><a th:if="${filepath != null}" th:href="@{${filepath}}">Download</a></td>
+            <td th:if="${jobExecutionStatus != null}"><a th:if="${jobExecutionStatus == 'COMPLETED'}" th:href="@{/batch/job/download(fileName=${fileName})}">Download</a></td>
         </tr>
         </tbody>
     </table>

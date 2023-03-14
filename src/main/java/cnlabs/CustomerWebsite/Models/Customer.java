@@ -8,6 +8,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +43,13 @@ public class Customer {
     @OneToOne
     @JoinColumn(name = "book_id")
     private Book book;
+
+//    @Temporal(TemporalType.DATE)
+//    @Column(name = "book_checkout_date")
+//    private Date bookCheckoutDate;
+
+    @Column(name = "book_checkout_date")
+    private LocalDate bookCheckoutDate;
 
     @Override
     public boolean equals(Object o) {

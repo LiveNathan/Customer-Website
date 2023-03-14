@@ -73,4 +73,12 @@ public class CustomerController {
         customerService.deleteCustomer(id);
             return "redirect:/customer-list";
     }
+
+    @GetMapping("/dashboard")
+    public String showDashboard(Model model) {
+        model.addAttribute("filepath", null);
+        model.addAttribute("jobExecutionID", null);
+        model.addAttribute("jobExecutionStatus", null);
+        return "dashboard";
+    }
 }

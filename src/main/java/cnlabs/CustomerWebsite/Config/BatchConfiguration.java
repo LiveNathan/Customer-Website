@@ -73,8 +73,7 @@ public class BatchConfiguration {
     public static class DateProcessor implements ItemProcessor<Customer, Customer> {
         @Override
         public Customer process(Customer customer) {
-            if (customer.getBookCheckoutDate() != null) {
-                if (customer.getBookCheckoutDate().plusDays(14).isBefore(LocalDate.now())) {  // if checkout date + 14 < today
+            if (customer.getBookCheckoutDate() != null) && customer.getBookCheckoutDate().plusDays(14).isBefore(LocalDate.now())) {  // if checkout date + 14 < today
                     return customer;  // return the customer
                 }
             }
